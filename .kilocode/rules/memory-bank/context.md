@@ -15,6 +15,7 @@ The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. I
 - [x] Memory bank documentation
 - [x] Recipe system for common features
 - [x] OpenStack Billing System implemented with full DB schema, pages, and seed data
+- [x] Fixed build failure: replaced `@kilocode/app-builder-db` (remote SQLite proxy) with `@libsql/client` (local file SQLite) — build now succeeds
 
 ## Current Structure
 
