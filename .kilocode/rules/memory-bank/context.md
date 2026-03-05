@@ -48,13 +48,43 @@ The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. I
 
 ## Current Focus
 
-OpenStack Billing System is fully implemented. Features:
-- Dashboard with revenue stats, recent invoices, project summaries
+OpenStack Billing System is fully implemented with live Kolla integration. Features:
+- Dashboard with revenue stats, recent invoices, project summaries, OS connection banner
 - Projects management with credit usage bars
 - Resources tracking by category with hourly cost estimates
 - Invoice management with detail view and payment history
 - Pricing catalog with monthly estimates
 - Dark theme UI with orange accent colors
+- **OpenStack Kolla integration**: Keystone auth, Nova, Cinder, Neutron API clients
+- **Settings page**: connection config guide, test connection, sync button
+- **Sync API**: pulls projects/servers/volumes/floating IPs/LBs into local DB
+
+## OpenStack Integration
+
+### Environment Variables Required
+```
+OS_AUTH_URL=http://KOLLA_IP:5000
+OS_USERNAME=admin
+OS_PASSWORD=...
+OS_PROJECT_NAME=admin
+OS_USER_DOMAIN_NAME=Default
+OS_PROJECT_DOMAIN_NAME=Default
+OS_REGION_NAME=RegionOne
+```
+
+### API Routes
+- `GET /api/openstack/test` — test Keystone connection
+- `GET /api/openstack/live` — fetch live data (no DB write)
+- `POST /api/openstack/sync` — sync OpenStack data into local DB
+
+### Library Files
+- `src/lib/openstack/config.ts` — env var config
+- `src/lib/openstack/keystone.ts` — token auth + service catalog
+- `src/lib/openstack/keystone-admin.ts` — list projects/users
+- `src/lib/openstack/nova.ts` — servers, flavors, hypervisor stats
+- `src/lib/openstack/cinder.ts` — volumes, volume types
+- `src/lib/openstack/neutron.ts` — floating IPs, networks, routers, LBs
+- `src/lib/openstack/client.ts` — unified client
 
 ## Quick Start Guide
 

@@ -1,11 +1,13 @@
 import { db } from "@/db";
 import { projects, invoices, resources, resourceTypes } from "@/db/schema";
-import { eq, sql, desc } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 import { seedDatabase } from "@/lib/seed";
+import { isOpenStackConfigured } from "@/lib/openstack/config";
 import Link from "next/link";
 
 export default async function DashboardPage() {
   await seedDatabase();
+  const osConfigured = isOpenStackConfigured();
 
   // Fetch summary stats
   const allProjects = await db.select().from(projects);
@@ -53,6 +55,29 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-bold text-white">Billing Dashboard</h1>
         <p className="text-gray-400 mt-1">Overview of your OpenStack cloud resource billing</p>
       </div>
+
+      {/* OpenStack Connection Banner */}
+      {osConfigured ? (
+        <div className="flex items-center gap-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+          <span className="text-green-400">🔗</span>
+          <p className="text-green-400 text-sm font-medium">
+            Connected to OpenStack Kolla environment
+          </p>
+          <Link href="/settings" className="ml-auto text-green-400 hover:text-green-300 text-sm">
+            Sync data →
+          </Link>
+        </div>
+      ) : (
+        <div className="flex items-center gap-3 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+          <span className="text-yellow-400">⚠️</span>
+          <p className="text-yellow-400 text-sm">
+            OpenStack not connected — showing demo data.
+          </p>
+          <Link href="/settings" className="ml-auto text-orange-400 hover:text-orange-300 text-sm">
+            Configure →
+          </Link>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

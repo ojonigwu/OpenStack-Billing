@@ -9,6 +9,7 @@ const navItems = [
   { href: "/resources", label: "Resources", icon: "⚙️" },
   { href: "/invoices", label: "Invoices", icon: "📄" },
   { href: "/pricing", label: "Pricing", icon: "💰" },
+  { href: "/settings", label: "Settings", icon: "⚙️" },
 ];
 
 export function Navbar() {
