@@ -1,6 +1,8 @@
 import { isOpenStackConfigured, getOpenStackConfig } from "@/lib/openstack/config";
 import { SyncButton } from "./SyncButton";
 
+export const dynamic = "force-dynamic";
+
 export default async function SettingsPage() {
   const configured = isOpenStackConfigured();
   let config = null;

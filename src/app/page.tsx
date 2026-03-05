@@ -5,6 +5,8 @@ import { seedDatabase } from "@/lib/seed";
 import { isOpenStackConfigured } from "@/lib/openstack/config";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
   await seedDatabase();
   const osConfigured = isOpenStackConfigured();

@@ -1,6 +1,8 @@
 import { db } from "@/db";
 import { resourceTypes } from "@/db/schema";
 
+export const dynamic = "force-dynamic";
+
 export default async function PricingPage() {
   const allResourceTypes = await db.select().from(resourceTypes);
 

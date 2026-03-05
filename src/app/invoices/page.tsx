@@ -3,6 +3,8 @@ import { invoices, projects, payments } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function InvoicesPage() {
   const allInvoices = await db.select().from(invoices).orderBy(desc(invoices.createdAt));
   const allProjects = await db.select().from(projects);

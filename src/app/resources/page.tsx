@@ -3,6 +3,8 @@ import { resources, resourceTypes, projects } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function ResourcesPage() {
   const allResources = await db.select().from(resources).orderBy(desc(resources.createdAt));
   const resourceTypeList = await db.select().from(resourceTypes);
